@@ -1,5 +1,5 @@
 {
-  "name": "mark-over",
+  "name": "@keepmhwn/mark-over",
   "version": "0.0.1",
   "description": "Transform text within markup tags (HTML) via callbacks while preserving structure",
   "main": "./dist/index.cjs",
@@ -31,7 +31,7 @@
     "format:check": "prettier --check \"src/**/*.ts\"",
     "type-check": "tsc --noEmit"
   },
-   "keywords": [
+  "keywords": [
     "html",
     "xml",
     "markup",
@@ -46,11 +46,14 @@
     "node",
     "browser"
   ],
-  "author": "keepmhwn <keepmhwn@gmail.com>",
+  "author": {
+    "name": "minhwan(keepmhwn)",
+    "email": "keepmhwn@gmail.com"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/keepmhwn/mark-over.git"
+    "url": "https://github.com/keepmhwn/mark-over"
   },
   "bugs": {
     "url": "https://github.com/keepmhwn/mark-over/issues"
