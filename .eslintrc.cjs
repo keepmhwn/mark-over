@@ -16,6 +16,7 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 'error',
+    'quotes': ['error', 'double', { 'avoidEscape': true }],
     '@typescript-eslint/no-unused-vars': [
       'error',
       { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
@@ -26,6 +27,7 @@ module.exports = {
   },
   env: {
     node: true,
+    browser: true,
     es6: true,
   },
   ignorePatterns: ['dist', 'node_modules', '*.config.js', '*.config.ts'],
