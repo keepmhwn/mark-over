@@ -1,21 +1,39 @@
 {
   "name": "@keepmhwn/mark-over",
   "private": false,
-  "version": "0.0.2-beta",
+  "version": "0.1.0",
+  "type": "commonjs",
   "description": "Transform text within markup tags (HTML) via callbacks while preserving structure",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/node.js",
+  "module": "./dist/node.mjs",
+  "types": "./dist/node.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+      "browser": {
+        "types": "./dist/browser.d.ts",
+        "import": "./dist/browser.mjs",
+        "require": "./dist/browser.js"
       },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+      "node": {
+        "types": "./dist/node.d.ts",
+        "import": "./dist/node.mjs",
+        "require": "./dist/node.js"
+      },
+      "types": "./dist/node.d.ts",
+      "default": {
+        "import": "./dist/node.mjs",
+        "require": "./dist/node.js"
       }
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "import": "./dist/browser.mjs",
+      "require": "./dist/browser.js"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "import": "./dist/node.mjs",
+      "require": "./dist/node.js"
     }
   },
   "files": [
