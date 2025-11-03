@@ -31,16 +31,16 @@ pnpm add @keepmhwn/mark-over
 
 ## Usage
 
-### Basic Example
+### Node.js Example
 
 ```typescript
 import { markOver } from "@keepmhwn/mark-over";
+// or explicitly: import { markOver } from "@keepmhwn/mark-over/node";
 
 const html = "<div><h1>Hello</h1><p>World</p></div>";
 
 const result = await markOver(
   {
-    runtime: "node", // or "browser"
     html: html,
   },
   (taggedText) => {
@@ -52,6 +52,29 @@ const result = await markOver(
 console.log(result);
 // Output: <div><h1>HELLO</h1><p>WORLD</p></div>
 ```
+
+### Browser Example
+
+```typescript
+import { markOver } from "@keepmhwn/mark-over";
+// or explicitly: import { markOver } from "@keepmhwn/mark-over/browser";
+
+const html = "<div><h1>Hello</h1><p>World</p></div>";
+
+const result = await markOver(
+  {
+    html: html,
+  },
+  (taggedText) => {
+    return taggedText.text.toUpperCase();
+  }
+);
+
+console.log(result);
+// Output: <div><h1>HELLO</h1><p>WORLD</p></div>
+```
+
+> **Note:** The default import (`@keepmhwn/mark-over`) automatically selects the correct implementation based on your environment. Use `/browser` or `/node` for explicit control.
 
 ### Translation Example
 
@@ -73,7 +96,6 @@ const html = `
 
 const result = await markOver(
   {
-    runtime: "node",
     html: html,
   },
   (taggedText) => {
@@ -101,7 +123,6 @@ const html = `
 
 const result = await markOver(
   {
-    runtime: "node",
     html: html,
   },
   (taggedText) => {
@@ -142,7 +163,6 @@ const html = "<div><p>Hello World</p></div>";
 
 const result = await markOver(
   {
-    runtime: "node",
     html: html,
   },
   async (taggedText) => {
@@ -167,7 +187,6 @@ const html = `
 
 const result = await markOver(
   {
-    runtime: "node",
     html: html,
     skipTags: ["CODE", "PRE"], // Don't transform code blocks
   },
@@ -179,26 +198,13 @@ const result = await markOver(
 // CODE and PRE tags remain unchanged
 ```
 
-### Browser Usage
-
-```typescript
-import { markOver } from "@keepmhwn/mark-over";
-
-// In browser environment
-const result = await markOver(
-  {
-    runtime: "browser", // Use browser's native DOM API
-    html: document.body.innerHTML,
-  },
-  (taggedText) => {
-    return taggedText.text.toUpperCase();
-  }
-);
-
-document.body.innerHTML = result;
-```
-
 ## API
+
+### Import Paths
+
+- **`@keepmhwn/mark-over`** - Auto-detects environment (recommended)
+- **`@keepmhwn/mark-over/node`** - Explicitly for Node.js
+- **`@keepmhwn/mark-over/browser`** - Explicitly for browsers
 
 ### `markOver(options, transform)`
 
@@ -206,8 +212,7 @@ Transforms text content within HTML markup.
 
 #### Parameters
 
-- **`options`**: `MarkOverOptions`
-  - **`runtime`**: `"node" | "browser"` - Runtime environment
+- **`options`**: `BrowserMarkOverOptions | NodeMarkOverOptions`
   - **`html`**: `string` - HTML string to transform
   - **`skipTags`**: `string[]` (optional) - Array of tag names to skip (default: `["STYLE", "SCRIPT", "CODE", "PRE", "SVG"]`)
 
@@ -229,18 +234,18 @@ Transforms text content within HTML markup.
 This library is written in TypeScript and includes type definitions.
 
 ```typescript
-import { markOver, type MarkOverOptions, type TaggedText } from "@keepmhwn/mark-over";
+import { markOver, type TaggedText } from "@keepmhwn/mark-over";
+// or: import { markOver, type NodeMarkOverOptions, type TaggedText } from "@keepmhwn/mark-over/node";
+// or: import { markOver, type BrowserMarkOverOptions, type TaggedText } from "@keepmhwn/mark-over/browser";
 
-const options: MarkOverOptions = {
-  runtime: "node",
-  html: "<p>Hello</p>",
-};
-
-const transform = (taggedText: TaggedText): string => {
-  return taggedText.text.toUpperCase();
-};
-
-const result = await markOver(options, transform);
+const result = await markOver(
+  {
+    html: "<p>Hello</p>",
+  },
+  (taggedText: TaggedText): string => {
+    return taggedText.text.toUpperCase();
+  }
+);
 ```
 
 ## Use Cases
